@@ -1,0 +1,26 @@
+{
+  "name": "functional-bowling",
+  "version": "0.1.0",
+  "description": "Functional algorithm of Bowling scoring written in JavaScript with TDD model",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TechQuery/Functional-Bowling.git"
+  },
+  "keywords": [
+    "functional-programming",
+    "algorithm",
+    "bowling-score",
+    "javascript",
+    "test-driven-development"
+  ],
+  "author": "shiy007@qq.com",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/TechQuery/Functional-Bowling/issues"
+  },
+  "homepage": "https://github.com/TechQuery/Functional-Bowling#readme"
+}
