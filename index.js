@@ -1,82 +1,66 @@
-'use strict';
-
-exports.sum = function (first, second) {
+export function sum(first, second) {
 
     return  first + second;
-};
+}
 
 
-exports.isSpare = function (first, second) {
+export function isSpare(first, second) {
 
     return  ((first !== 10) && (first + second === 10))  ?  1  :  0;
-};
+}
 
 
-exports.isStrike = function (first) {
+export function isStrike(first) {
 
     return  (first === 10)  ?  1  :  0;
-};
+}
 
 
-exports.curry = function (origin) {
+export function curry(origin) {
 
-    var count = origin.length;
+    const count = origin.length;
 
     return  function curry() {
 
-        return  (count > arguments.length) ?
-            curry.bind.apply(
-                curry,  Array.prototype.concat.apply([ null ],  arguments)
-            ) :
-            origin.apply(this, arguments);
+        return  (count > arguments.length)  ?
+            curry.bind(null, ...arguments)  :  origin.apply(this, arguments);
     };
-};
+}
 
 
-exports.round = function (this_first, this_second, next_one, next_two) {
+export function round(this_first, this_second, next_one, next_two) {
 
     return  this_first + this_second +
-        exports.isSpare(this_first, this_second) * next_one +
-        exports.isStrike(this_first, this_second) * (next_one + next_two);
-};
+        isSpare(this_first, this_second) * next_one +
+        isStrike(this_first, this_second) * (next_one + next_two);
+}
 
 
-const curry_round = exports.curry( exports.round );
+const curry_round = curry( round );
 
-const score = [ ], stack = [ ];
+const point = [ ], stack = [ ];
 
-exports.hit = function hit(count) {
+export function hit(count) {
 
-    var length = score.push( count ),  curry;
+    var length = point.push( count ),  curry;
 
-    if (length % 2) {
+    if (length % 2)  stack.push(curry = curry_round( count ));
 
-        stack.push(curry = curry_round( count ));
-    }
-
-    for (let i = stack.length - 1;  i >= 0;  i--) {
-        if (
-            (curry !== stack[i])  &&
-            (stack[i] instanceof Function)
-        ) {
+    for (let i = stack.length - 1;  i >= 0;  i--)
+        if ((curry !== stack[i])  &&  (stack[i] instanceof Function))
             stack[i] = stack[i]( count );
-        }
-    }
 
-    if ((length % 2)  &&  (count === 10)) {
-
-        hit( 0 );
-    }
-};
+    if ((length % 2)  &&  (count === 10))  hit( 0 );
+}
 
 
-exports.scoreOf = function (index) {
+export function scoreOf(index) {
 
     return  stack[ index ];
-};
+}
 
 
-exports.score = function () {
+export function score() {
 
     return  stack.slice(0, 10).reduce( exports.sum );
-};
+}

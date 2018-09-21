@@ -1,16 +1,7 @@
 {
   "name": "functional-bowling",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Functional algorithm of Bowling scoring written in JavaScript with TDD model",
-  "main": "index.js",
-  "scripts": {
-    "test": "node test",
-    "precommit": "npm test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/TechQuery/Functional-Bowling.git"
-  },
   "keywords": [
     "functional-programming",
     "algorithm",
@@ -20,11 +11,44 @@
   ],
   "author": "shiy007@qq.com",
   "license": "AGPL-3.0",
+  "homepage": "https://github.com/TechQuery/Functional-Bowling#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TechQuery/Functional-Bowling.git"
+  },
   "bugs": {
     "url": "https://github.com/TechQuery/Functional-Bowling/issues"
   },
-  "homepage": "https://github.com/TechQuery/Functional-Bowling#readme",
+  "main": "dist/index.js",
+  "browser": "dist/index.js",
+  "module": "index.js",
+  "scripts": {
+    "lint": "eslint index.js test/ --fix",
+    "test": "mocha --exit",
+    "debug": "mocha --inspect-brk",
+    "pack": "amd-bundle index dist/functional-bowling",
+    "build": "npm run lint  &&  npm test  &&  npm run pack",
+    "prepublishOnly": "npm run build",
+    "precommit": "npm run build  &&  git add ."
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.0.0"
+  },
   "devDependencies": {
-    "husky": "^0.14.3"
+    "@babel/core": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/register": "^7.0.0",
+    "amd-bundle": "^1.6.0",
+    "eslint": "^5.6.0",
+    "husky": "^0.14.3",
+    "mocha": "^5.2.0",
+    "should": "^13.2.3"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env"
+      ]
+    ]
   }
 }
